@@ -5,7 +5,7 @@ import {
   stringToUint8Array,
   uint8ArrayToBase64,
   uint8ArrayToString,
-} from './base64.ts';
+} from './base64';
 
 export const compress = (input: string): string => {
   const data = stringToUint8Array(input);

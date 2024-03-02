@@ -1,19 +1,10 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-
-import './App.css';
-import Root from './routes/root';
-import Editor from './routes/editor';
+import Root from './routes/Root';
 
 const router = createHashRouter([
   {
-    path: '/',
+    path: '/:compressedData?',
     element: <Root />,
-    children: [
-      {
-        path: ':compressedData?',
-        element: <Editor />,
-      },
-    ],
   },
 ]);
 
