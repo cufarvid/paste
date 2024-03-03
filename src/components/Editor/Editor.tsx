@@ -1,5 +1,6 @@
 import { Editor as MonacoEditor } from '@monaco-editor/react';
-import { useStore } from '../store';
+import { useStore } from '../../store';
+import { Main } from './Editor.styles';
 
 interface EditorProps {
   value: string;
@@ -9,7 +10,7 @@ export default function Editor({ value, onChange }: EditorProps) {
   const { theme, language } = useStore();
 
   return (
-    <>
+    <Main>
       <MonacoEditor
         height="90vh"
         language={language}
@@ -17,6 +18,6 @@ export default function Editor({ value, onChange }: EditorProps) {
         value={value}
         onChange={(value) => onChange(value ?? '')}
       ></MonacoEditor>
-    </>
+    </Main>
   );
 }

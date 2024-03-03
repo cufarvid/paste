@@ -1,5 +1,6 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root';
+import GlobalStyles from './globalStyles';
 
 const router = createHashRouter([
   {
@@ -9,5 +10,10 @@ const router = createHashRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <GlobalStyles />
+      <RouterProvider router={router} />
+    </>
+  );
 }
