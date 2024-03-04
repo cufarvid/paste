@@ -6,11 +6,15 @@ import {
   AutoCompleteItem,
   AutoCompleteItemButton,
 } from './AutoComplete.styles';
+import { Theme } from '../../lib/theme.ts';
+import { Language } from '../../lib/language.ts';
 
-interface AutoCompleteProps {
-  data: string[];
+type Item = Theme | Language;
+
+interface AutoCompleteProps<T extends Item> {
+  data: T[];
   placeholder: string;
-  onSelect: (value: string) => void;
+  onSelect: (value: T) => void;
 }
 
 interface SearchState {
@@ -18,12 +22,11 @@ interface SearchState {
   suggestions: string[];
 }
 
-export default function AutoComplete({
+export default function AutoComplete<T extends Item>({
   data,
   placeholder,
   onSelect,
-}: AutoCompleteProps) {
-  //const { theme, setTheme, language, setLanguage } = useStore();
+}: AutoCompleteProps<T>) {
   const [search, setSearch] = useState<SearchState>({
     text: '',
     suggestions: [],
@@ -41,7 +44,7 @@ export default function AutoComplete({
     setSearch({ suggestions, text: value });
   };
 
-  const handleSelect = (value: string) => {
+  const handleSelect = (value: T) => {
     setIsComponentVisible(false);
     onSelect(value);
     setSearch({
@@ -76,7 +79,7 @@ export default function AutoComplete({
             <AutoCompleteItem key={suggestion}>
               <AutoCompleteItemButton
                 key={suggestion}
-                onClick={() => handleSelect(suggestion)}
+                onClick={() => handleSelect(suggestion as T)}
               >
                 {suggestion}
               </AutoCompleteItemButton>
