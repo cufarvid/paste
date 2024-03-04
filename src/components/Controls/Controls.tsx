@@ -13,9 +13,6 @@ interface ControlsProps {
 export default function Controls({ onNew, onSave }: ControlsProps) {
   const { theme, setTheme, language, setLanguage } = useStore();
 
-  const mutableLanguages = [...LANGUAGES];
-  const mutableThemes = [...THEMES];
-
   return (
     <Header>
       <Wrapper>
@@ -28,12 +25,12 @@ export default function Controls({ onNew, onSave }: ControlsProps) {
       </Wrapper>
       <Wrapper>
         <AutoComplete
-          data={mutableLanguages}
+          data={LANGUAGES}
           onSelect={(language: Language) => setLanguage(language)}
           placeholder="Language"
         />
         <AutoComplete
-          data={mutableThemes}
+          data={THEMES}
           onSelect={(theme: Theme) => setTheme(theme)}
           placeholder="Theme"
         />

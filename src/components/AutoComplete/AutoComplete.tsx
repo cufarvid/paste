@@ -12,7 +12,7 @@ import { Language } from '../../lib/language.ts';
 type Item = Theme | Language;
 
 interface AutoCompleteProps<T extends Item> {
-  data: T[];
+  data: readonly T[];
   placeholder: string;
   onSelect: (value: T) => void;
 }
