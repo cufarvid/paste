@@ -6,6 +6,7 @@ export const Header = styled.header`
   justify-content: space-between;
   flex-wrap: nowrap;
   padding: 2rem;
+  background: ${({ theme }) => theme.background};
 `;
 
 export const Wrapper = styled.div`
@@ -17,14 +18,14 @@ export const Wrapper = styled.div`
 export const Button = styled.button`
   display: flex;
   padding: 0.5rem;
-  background-color: #eeeeee;
+  background-color: ${({ theme }) => theme.surface};
   border: none;
   border-radius: 50%;
   cursor: pointer;
   transition: 200ms linear;
 
   &:hover {
-    background-color: #dddddd;
+    background-color: ${({ theme }) => theme.overlay};
   }
 `;
 
@@ -32,6 +33,7 @@ export const Button = styled.button`
 export const StyledIcon = css`
   width: 1rem;
   height: 1rem;
+  color: ${({ theme }) => theme.text};
 `;
 
 // Icons

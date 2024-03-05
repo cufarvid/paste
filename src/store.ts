@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { Theme } from './lib/theme.ts';
-import { Language } from './lib/language.ts';
+import type { Theme } from './lib/theme';
+import { Language } from './lib/language';
 
 interface Store {
   theme: Theme;
@@ -10,7 +10,7 @@ interface Store {
 }
 
 export const useStore = create<Store>((set) => ({
-  theme: 'light',
+  theme: 'latte',
   setTheme: (theme: Theme) => set({ theme }),
   language: 'plaintext',
   setLanguage: (language: Language) => set({ language }),

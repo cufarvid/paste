@@ -6,7 +6,7 @@ import {
   AutoCompleteItem,
   AutoCompleteItemButton,
 } from './AutoComplete.styles';
-import { Theme } from '../../lib/theme.ts';
+import { Theme } from '../../lib/theme';
 import { Language } from '../../lib/language.ts';
 
 type Item = Theme | Language;
@@ -53,14 +53,6 @@ export default function AutoComplete<T extends Item>({
     });
   };
 
-  const handleBlur = () => {
-    setIsComponentVisible(false);
-    setSearch({
-      text: '',
-      suggestions: [],
-    });
-  };
-
   const { suggestions } = search;
 
   return (
@@ -71,7 +63,6 @@ export default function AutoComplete<T extends Item>({
         value={search.text}
         autoComplete="off"
         placeholder={placeholder}
-        onBlur={handleBlur}
       />
       {suggestions.length > 0 && isComponentVisible && (
         <AutoCompleteDropdownContainer>
