@@ -36,10 +36,17 @@ export const AutoCompleteDropdownContainer = styled.ul`
   z-index: 1;
 `;
 
-export const AutoCompleteItem = styled.li`
+export const AutoCompleteItem = styled.li<{
+  isSelected: boolean;
+  isActive: boolean;
+}>`
   padding: 0 24px;
   width: 100%;
   box-sizing: border-box;
+  font-weight: ${({ isSelected }) => (isSelected ? 'bold' : 'normal')};
+  background-color: ${({ theme, isSelected, isActive }) =>
+    isSelected || isActive ? theme.overlay : theme.surface};
+
   &:hover {
     background-color: ${({ theme }) => theme.overlay};
   }

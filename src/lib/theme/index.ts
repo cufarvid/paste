@@ -30,6 +30,7 @@ export const THEME_CONFIGS: Record<Theme, ThemeConfig> = {
 };
 
 export const THEMES: Theme[] = Object.keys(THEME_CONFIGS) as Theme[];
+export const DEFAULT_THEME: Theme = 'latte';
 
 export const defineTheme = (config: ThemeConfig) => {
   loader.init().then((monaco) => {

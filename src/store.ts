@@ -1,17 +1,17 @@
 import { create } from 'zustand';
-import type { Theme } from './lib/theme';
-import { Language } from './lib/language';
+import { DEFAULT_THEME, Theme } from './lib/theme';
+import { DEFAULT_LANGUAGE, Language } from './lib/language';
 
 interface Store {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: Theme | null) => void;
   language: Language;
-  setLanguage: (language: Language) => void;
+  setLanguage: (language: Language | null) => void;
 }
 
 export const useStore = create<Store>((set) => ({
-  theme: 'latte',
-  setTheme: (theme: Theme) => set({ theme }),
-  language: 'plaintext',
-  setLanguage: (language: Language) => set({ language }),
+  theme: DEFAULT_THEME,
+  setTheme: (theme) => set({ theme: theme ?? DEFAULT_THEME }),
+  language: DEFAULT_LANGUAGE,
+  setLanguage: (language) => set({ language: language ?? DEFAULT_LANGUAGE }),
 }));

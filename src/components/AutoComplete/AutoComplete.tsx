@@ -1,83 +1,72 @@
-import { ChangeEvent, useState } from 'react';
-import {
-  AutoCompleteWrapper,
-  AutoCompleteInput,
-  AutoCompleteDropdownContainer,
-  AutoCompleteItem,
-  AutoCompleteItemButton,
-} from './AutoComplete.styles';
+import Downshift from 'downshift';
+
 import { Theme } from '../../lib/theme';
 import { Language } from '../../lib/language.ts';
+import {
+  AutoCompleteDropdownContainer,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteItemButton,
+  AutoCompleteWrapper,
+} from './AutoComplete.styles.ts';
 
 type Item = Theme | Language;
 
 interface AutoCompleteProps<T extends Item> {
-  data: readonly T[];
-  placeholder: string;
-  onSelect: (value: T) => void;
-}
-
-interface SearchState {
-  text: string;
-  suggestions: string[];
+  label: string;
+  items: readonly T[];
+  onSelect: (value: T | null) => void;
+  selectedItem: T;
 }
 
 export default function AutoComplete<T extends Item>({
-  data,
-  placeholder,
+  label,
+  items,
   onSelect,
+  selectedItem,
 }: AutoCompleteProps<T>) {
-  const [search, setSearch] = useState<SearchState>({
-    text: '',
-    suggestions: [],
-  });
-  const [isComponentVisible, setIsComponentVisible] = useState(false);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    let suggestions: string[] = [];
-    if (value.length > 0) {
-      const regex = new RegExp(`^${value}`, 'i');
-      suggestions = data.filter((x: string) => regex.test(x));
-    }
-    setIsComponentVisible(true);
-    setSearch({ suggestions, text: value });
-  };
-
-  const handleSelect = (value: T) => {
-    setIsComponentVisible(false);
-    onSelect(value);
-    setSearch({
-      text: value,
-      suggestions: [],
-    });
-  };
-
-  const { suggestions } = search;
-
   return (
     <AutoCompleteWrapper>
-      <AutoCompleteInput
-        type="text"
-        onChange={handleChange}
-        value={search.text}
-        autoComplete="off"
-        placeholder={placeholder}
-      />
-      {suggestions.length > 0 && isComponentVisible && (
-        <AutoCompleteDropdownContainer>
-          {search.suggestions.map((suggestion) => (
-            <AutoCompleteItem key={suggestion}>
-              <AutoCompleteItemButton
-                key={suggestion}
-                onClick={() => handleSelect(suggestion as T)}
-              >
-                {suggestion}
-              </AutoCompleteItemButton>
-            </AutoCompleteItem>
-          ))}
-        </AutoCompleteDropdownContainer>
-      )}
+      <Downshift
+        selectedItem={selectedItem}
+        onChange={onSelect}
+        itemToString={(item) => item ?? ''}
+      >
+        {({
+          getInputProps,
+          getItemProps,
+          getLabelProps,
+          getMenuProps,
+          isOpen,
+          inputValue,
+          highlightedIndex,
+          selectedItem,
+        }) => (
+          <div>
+            <label {...getLabelProps()}>{label}</label>
+            <AutoCompleteInput {...getInputProps()} />
+            <AutoCompleteDropdownContainer {...getMenuProps()}>
+              {isOpen
+                ? items
+                    .filter((item) => !inputValue || item.includes(inputValue))
+                    .map((item, index) => (
+                      <AutoCompleteItem
+                        {...getItemProps({
+                          index,
+                          key: item,
+                          item: item as T,
+                          isActive: highlightedIndex === index,
+                          isSelected: selectedItem === item,
+                        })}
+                      >
+                        <AutoCompleteItemButton>{item}</AutoCompleteItemButton>
+                      </AutoCompleteItem>
+                    ))
+                : null}
+            </AutoCompleteDropdownContainer>
+          </div>
+        )}
+      </Downshift>
     </AutoCompleteWrapper>
   );
 }

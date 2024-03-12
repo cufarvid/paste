@@ -1,8 +1,8 @@
 import { ThemeProvider } from 'styled-components';
 
 import { useStore } from '../../store';
-import { Language, LANGUAGES } from '../../lib/language';
-import { Theme, THEME_CONFIGS, THEMES } from '../../lib/theme';
+import { LANGUAGES } from '../../lib/language';
+import { THEME_CONFIGS, THEMES } from '../../lib/theme';
 import AutoComplete from '../AutoComplete/AutoComplete';
 import { Header, Wrapper, Button, PlusIcon, SaveIcon } from './Controls.styles';
 
@@ -27,14 +27,16 @@ export default function Controls({ onNew, onSave }: ControlsProps) {
         </Wrapper>
         <Wrapper>
           <AutoComplete
-            data={LANGUAGES}
-            onSelect={(language: Language) => setLanguage(language)}
-            placeholder="Language"
+            label="Language"
+            items={LANGUAGES}
+            selectedItem={language}
+            onSelect={setLanguage}
           />
           <AutoComplete
-            data={THEMES}
-            onSelect={(theme: Theme) => setTheme(theme)}
-            placeholder="Theme"
+            label="Theme"
+            items={THEMES}
+            selectedItem={theme}
+            onSelect={setTheme}
           />
         </Wrapper>
       </Header>

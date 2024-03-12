@@ -70,4 +70,6 @@ export const LANGUAGES = [
   'yaml',
 ] as const;
 
+export const DEFAULT_LANGUAGE: Language = 'plaintext';
+
 export type Language = (typeof LANGUAGES)[number];
