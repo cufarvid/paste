@@ -3,9 +3,11 @@ import { Plus, Save } from 'lucide-react';
 
 export const Header = styled.header`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
-  padding: 2rem;
+  height: 10vh;
+  padding: 0 1rem;
   background: ${({ theme }) => theme.background};
 `;
 
@@ -17,6 +19,7 @@ export const Wrapper = styled.div`
 
 export const Button = styled.button`
   display: flex;
+  height: 32px;
   padding: 0.5rem;
   background-color: ${({ theme }) => theme.surface};
   border: none;

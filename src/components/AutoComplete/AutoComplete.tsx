@@ -3,7 +3,8 @@ import Downshift from 'downshift';
 import { Theme } from '../../lib/theme';
 import { Language } from '../../lib/language.ts';
 import {
-  AutoCompleteDropdownContainer,
+  AutoCompleteDropdown,
+  AutoCompleteLabel,
   AutoCompleteInput,
   AutoCompleteItem,
   AutoCompleteItemButton,
@@ -43,9 +44,9 @@ export default function AutoComplete<T extends Item>({
           selectedItem,
         }) => (
           <div>
-            <label {...getLabelProps()}>{label}</label>
+            <AutoCompleteLabel {...getLabelProps()}>{label}</AutoCompleteLabel>
             <AutoCompleteInput {...getInputProps()} />
-            <AutoCompleteDropdownContainer {...getMenuProps()}>
+            <AutoCompleteDropdown {...getMenuProps()}>
               {isOpen
                 ? items
                     .filter((item) => !inputValue || item.includes(inputValue))
@@ -63,7 +64,7 @@ export default function AutoComplete<T extends Item>({
                       </AutoCompleteItem>
                     ))
                 : null}
-            </AutoCompleteDropdownContainer>
+            </AutoCompleteDropdown>
           </div>
         )}
       </Downshift>
